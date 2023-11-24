@@ -1,0 +1,81 @@
+Doutor Ulysses,Cerro Azul,46.9,1.19
+Cerro Azul,Adrianópolis,82.9,1.57
+Cerro Azul,Tunas do Paraná,33.6,1.02
+Cerro Azul,Bocaiúva do Sul,72.1,1.48
+Cerro Azul,Rio Branco do Sul,60.0,1.34
+Tunas do Paraná,Adrianópolis,54.3,1.03
+Tunas do Paraná,Bocaiúva do Sul,38.6,0.48
+Rio Branco do Sul,Itaperuçu,7.0,0.16
+Rio Branco do Sul,Almirante Tamandaré,15.7,0.23
+Rio Branco do Sul,Colombo,32.9,0.48
+Rio Branco do Sul,Bocaiúva do Sul,25.5,0.49
+Bocaiúva do Sul,Colombo,24.8,0.34
+Bocaiúva do Sul,Campina Grande do Sul,29.1,0.40
+Campina Grande do Sul,Colombo,14.5,0.16
+Campina Grande do Sul,Quatro Barras,3.5,0.07
+Campina Grande do Sul,Morretes,52.1,1.08
+Campina Grande do Sul,Antonina,56.7,1.12
+Campina Grande do Sul,Guaraqueçaba,147.0,3.42
+Antonina,Morretes,14.8,0.20
+Antonina,Guaraqueçaba,97.9,2.44
+Itaperuçu,Campo Largo,55.8,1.06
+Itaperuçu,Campo Magro,32.7,0.41
+Itaperuçu,Almirante Tamandaré,18.0,0.25
+Campo Largo,Campo Magro,25.7,0.25
+Campo Largo,Curitiba,29.5,0.40
+Campo Largo,Araucária,27.5,0.33
+Campo Largo,Balsa Nova,20.4,0.26
+Campo Magro,Almirante Tamandaré,16.7,0.21
+Campo Magro,Curitiba,12.7,0.30
+Almirante Tamandaré,Colombo,18.2,0.27
+Almirante Tamandaré,Curitiba,16.2,0.32
+Colombo,Curitiba,12.9,0.35
+Colombo,Pinhais,8.8,0.18
+Colombo,Quatro Barras,14.4,0.18
+Pinhais,Piraquara,14.6,0.18
+Quatro Barras,Piraquara,10.4,0.15
+Quatro Barras,Morretes,50.0,1.04
+Morretes,Piraquara,60.8,0.55
+Morretes,São José dos Pinhais,62.2,1.0
+Morretes,Guaratuba,70.0,1.27
+Morretes,Paranaguá,40.3,0.38
+Paranaguá,Pontal do Paraná,27.8,0.29
+Paranaguá,Matinhos,44.2,0.40
+Paranaguá,Guaratuba,54.0,1.18
+Pontal do Paraná,Matinhos,15.8,0.25
+Guaratuba,Matinhos,10.1,0.37
+Guaratuba,Tijucas do Sul,96.3,1.34
+Guaratuba,São José dos Pinhais,117.6,1.46
+São José dos Pinhais,Tijucas do Sul,49.2,0.48
+São José dos Pinhais,Mandirituba,41.4,0.43
+São José dos Pinhais,Fazenda Rio Grande,28.2,0.33
+São José dos Pinhais,Curitiba,14.6,0.25
+São José dos Pinhais,Pinhais,17.6,0.28
+São José dos Pinhais,Piraquara,21.3,0.27
+Curitiba,Araucária,27.3,0.42
+Curitiba,Fazenda Rio Grande,27.5,0.43
+Porto Amazonas,Lapa,36.6,0.36
+Porto Amazonas,Balsa Nova,60.1,0.56
+Balsa Nova,Lapa,34.4,0.45
+Balsa Nova,Araucária,33.0,0.45
+Araucária,Fazenda Rio Grande,17.6,0.27
+Araucária,Mandirituba,30.7,0.36
+Araucária,Contenda,19.2,0.24
+Fazenda Rio Grande,Mandirituba,15.4,0.17
+Tijucas do Sul,Mandirituba,47.7,0.49
+Tijucas do Sul,Agudos do Sul,19.7,0.23
+Mandirituba,Contenda,58.2,0.57
+Mandirituba,Quitandinha,26.0,0.25
+Mandirituba,Agudos do Sul,27.7,0.27
+Contenda,Quitandinha,30.6,0.43
+Contenda,Lapa,26.3,0.29
+Lapa,Quitandinha,54.9,0.56
+Lapa,Campo do Tenente,29.2,0.34
+Lapa,Rio Negro,48.1,0.53
+Quitandinha,Campo do Tenente,27.7,0.27
+Quitandinha,Piên,49.2,0.47
+Quitandinha,Agudos do sul,32.2,0.31
+Campo do Tenente,Rio Negro,19.6,0.22
+Campo do Tenente,Piên,75.0,1.08
+Piên,Agudos do sul,18.0,0.20
+Piên,Rio Negro,46.2,1.10

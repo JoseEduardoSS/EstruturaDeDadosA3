@@ -1,35 +1,47 @@
 package br.com.estruturaDeDados;
 
+import java.text.DecimalFormat;
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Criando grafo!");
+
+        // Definindo scanner para input de dados de percuso
+        var scan = new Scanner(System.in);
+
+        // Instanciado grafo
         var grafo = new GrafoGeografico();
 
-        grafo.adicionarAresta("A", "B", 5.0);
-        grafo.adicionarAresta("A", "C", 5.0);
-        grafo.adicionarAresta("A", "D", 10.0);
-        grafo.adicionarAresta("B", "C", 20.0);
-        grafo.adicionarAresta("C", "D", 15.0);
-        grafo.adicionarAresta("D", "E", 5.0);
-        grafo.adicionarAresta("C", "E", 5.0);
+        //  Definição de formatação de numérica
+        var numberFormat = new DecimalFormat("#.00");
 
-        System.out.println("Grafo criado!");
+        //  Iniciando grafo
+        grafo.ConstruirGrafo();
 
-        var inicio = "A";
-        var destino = "E";
+        // Input de dados do percurso:
+        System.out.println("Digite o início e o destino do percurso: ");
+        System.out.print("Início: ");
+        var inicio = scan.nextLine();
+        System.out.print("Destino: ");
+        var destino = scan.nextLine();
 
+        // Fazendo requisição
         var resultado = grafo.menorDistancia(inicio, destino);
 
+        // Obtenção dos resultados
         var menorDistancia = resultado.getDistancia();
         var percurso = resultado.getPercurso();
 
+        // View de resultados
         if (menorDistancia != null) {
+            System.out.println("############################################");
             if (menorDistancia >= 0) {
-                System.out.println("A menor distância entre " + inicio + " e " + destino + " é: " + menorDistancia);
+                System.out.println("A menor distância entre " + Utils.capitalizeWords(inicio) + " e " + Utils.capitalizeWords(destino) + " é: " + numberFormat.format(menorDistancia) + "km");
                 System.out.println("Percurso: " + String.join(" -> ", percurso));
             } else {
-                System.out.println("Não há caminho entre $pontoA e $pontoB");
+                System.out.println("Não há caminho entre " + inicio + " e " + destino);
             }
+            System.out.println("############################################");
         }
     }
 }
