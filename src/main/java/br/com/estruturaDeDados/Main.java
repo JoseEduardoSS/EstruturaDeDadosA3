@@ -29,19 +29,21 @@ public class Main {
         var resultado = grafo.menorDistancia(inicio, destino);
 
         // Obtenção dos resultados
-        var menorDistancia = resultado.getDistancia();
-        var percurso = resultado.getPercurso();
+        var menorDistancia = resultado.distancia();
+        var percurso = resultado.percurso();
+        var tempo = resultado.tempoTotal();
 
         // View de resultados
         if (menorDistancia != null) {
-            System.out.println("############################################");
+            System.out.println("====================================================================================");
             if (menorDistancia >= 0) {
                 System.out.println("A menor distância entre " + Utils.capitalizeWords(inicio) + " e " + Utils.capitalizeWords(destino) + " é: " + numberFormat.format(menorDistancia) + "km");
                 System.out.println("Percurso: " + String.join(" -> ", percurso));
+                System.out.println("Tempo total da viagem: " + Utils.convertTime(tempo));
             } else {
                 System.out.println("Não há caminho entre " + inicio + " e " + destino);
             }
-            System.out.println("############################################");
+            System.out.println("====================================================================================");
         }
     }
 }

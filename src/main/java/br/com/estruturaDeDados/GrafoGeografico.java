@@ -27,6 +27,8 @@ public class GrafoGeografico {
         pontoB = pontoB.toLowerCase();
 
         var distancias = new HashMap<String, Double>();
+        var tempos = new HashMap<String, Integer>();
+
 
         //filaDePrioridade classificará as strings com base nos valores correspondentes no mapa distancias.
         //As strings com valores menores no mapa terão maior prioridade na fila
@@ -42,7 +44,8 @@ public class GrafoGeografico {
             //define o final do loop while e retorna os valores
             if (pontoAtual.equals(pontoB)) {
                 var percurso = construirPercurso(predecessores, pontoA, pontoB);
-                return new RetornoCalculo(distancias.get(pontoB), percurso);
+                var tempoTotal = tempos.get(pontoB);
+                return new RetornoCalculo(distancias.get(pontoB), tempoTotal, percurso);
             }
 
             //entries ira pegar o map de adjacências do ponto atual
@@ -67,6 +70,8 @@ public class GrafoGeografico {
                         //atualiza a distância para o próximo ponto com a nova distância calculada
                         distancias.put(proximoPonto, novaDistancia);
 
+                        tempos.put(proximoPonto, tempos.getOrDefault(pontoAtual, 0) + distancia.tempo());
+
                         //adiciona o próximo ponto à fila de prioridade. Isso significa que
                         //planejamos explorar as arestas saindo desse ponto a partir de agora
                         filaDePrioridade.add(proximoPonto);
@@ -76,7 +81,7 @@ public class GrafoGeografico {
             }
         }
 
-        return new RetornoCalculo(-1.0, Collections.emptyList());
+        return new RetornoCalculo(-1.0, -1, Collections.emptyList());
     }
 
     private List<String> construirPercurso(Map<String, String> predecessores, String pontoA, String pontoB) {
@@ -100,10 +105,9 @@ public class GrafoGeografico {
         try (var leitor = new FileReader(CSVPATH)) {
             var csvParser = new CSVParser(leitor, CSVFormat.DEFAULT);
 
-
             csvParser.forEach(data -> {
                 var distancia = Double.parseDouble(data.get(2));
-                var tempo = Double.parseDouble(data.get(3));
+                var tempo = Integer.parseInt(data.get(3));
 
                 adicionarAresta(data.get(0), data.get(1), new Aresta(distancia, tempo));
             });
@@ -111,4 +115,6 @@ public class GrafoGeografico {
             throw new IllegalStateException(e.getMessage());
         }
     }
+
 }
+

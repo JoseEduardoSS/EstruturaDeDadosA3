@@ -49,4 +49,21 @@ public class Utils {
 
         return resultado.toString();
     }
+
+    public static String convertTime(int minutos) {
+        if (minutos < 0) {
+            throw new IllegalArgumentException("O número de minutos não pode ser negativo");
+        }
+
+        int horas = minutos / 60;
+        int minutosRestantes = minutos % 60;
+
+        if (horas == 0) {
+            return minutos + " minutos";
+        } else if (minutosRestantes == 0) {
+            return horas + " hora" + (horas > 1 ? "s" : "");
+        } else {
+            return horas + " hora" + (horas > 1 ? "s" : "") + " e " + minutosRestantes + " minuto" + (minutosRestantes > 1 ? "s" : "");
+        }
+    }
 }
