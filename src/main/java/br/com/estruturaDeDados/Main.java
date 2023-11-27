@@ -1,13 +1,10 @@
 package br.com.estruturaDeDados;
 
+import javax.swing.*;
 import java.text.DecimalFormat;
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        // Definindo scanner para input de dados de percurso
-        var scan = new Scanner(System.in);
-
         // Instanciando grafo
         var grafo = new GrafoGeografico();
 
@@ -18,27 +15,20 @@ public class Main {
         grafo.ConstruirGrafo();
 
         // Input de dados do percurso
-        System.out.println("Insira informações sobre a viagem que será feita: ");
-        System.out.print("Início: ");
-        var inicio = scan.nextLine();
-        System.out.print("Destino: ");
-        var destino = scan.nextLine();
+        var inicio = JOptionPane.showInputDialog("Início:");
+        var destino = JOptionPane.showInputDialog("Destino:");
 
-        System.out.print("""
-                Meio de transporte:
-                1 - Carro
-                2 - Moto
-                3 - Ônibus
-                4 - Caminhão
-                Selecione:""");
-        var transporte = scan.nextInt();
+        String[] opcoesTransporte = {"Carro", "Moto", "Ônibus", "Caminhão"};
+        int escolhaTransporte = JOptionPane.showOptionDialog(null, "Selecione o meio de transporte:",
+                "Escolha o transporte", JOptionPane.DEFAULT_OPTION, JOptionPane.QUESTION_MESSAGE,
+                null, opcoesTransporte, opcoesTransporte[0]);
 
         String meioTransporte;
-        switch (transporte) {
-            case 1 -> meioTransporte = "carro";
-            case 2 -> meioTransporte = "moto";
-            case 3 -> meioTransporte = "onibus";
-            case 4 -> meioTransporte = "caminhao";
+        switch (escolhaTransporte) {
+            case 0 -> meioTransporte = "carro";
+            case 1 -> meioTransporte = "moto";
+            case 2 -> meioTransporte = "onibus";
+            case 3 -> meioTransporte = "caminhao";
             default -> meioTransporte = null;
         }
 
@@ -52,18 +42,20 @@ public class Main {
         var custo = resultado.custoTotal();
 
         // Exibição dos resultados
-        System.out.println("====================================================================================");
         if (menorDistancia >= 0) {
-            System.out.println("A menor distância entre " + Utils.capitalizeWords(inicio) + " e " + Utils.capitalizeWords(destino) + " é: " + numberFormat.format(menorDistancia) + " km");
-            System.out.println("Percurso: " + String.join(" -> ", percurso));
-            System.out.println("Tempo total da viagem: " + Utils.convertTime(tempo));
-            System.out.println("Custo total da viagem: R$ " + numberFormat.format(custo));
+            JOptionPane.showMessageDialog(null,
+                    "A menor distância entre " + Utils.capitalizeWords(inicio) + " e " + Utils.capitalizeWords(destino) +
+                            " é: " + numberFormat.format(menorDistancia) + " km\n" +
+                            "Percurso: " + String.join(" → ", percurso) + "\n" +
+                            "Tempo total da viagem: " + Utils.convertTime(tempo) + "\n" +
+                            "Custo total da viagem: R$ " + numberFormat.format(custo),
+                    "Resultados",
+                    JOptionPane.INFORMATION_MESSAGE);
         } else {
-            System.out.println("Não há caminho entre " + inicio + " e " + destino);
+            JOptionPane.showMessageDialog(null,
+                    "Não há caminho entre " + inicio + " e " + destino,
+                    "Resultados",
+                    JOptionPane.WARNING_MESSAGE);
         }
-        System.out.println("====================================================================================");
-
-        // Fechando o scanner
-        scan.close();
     }
 }
