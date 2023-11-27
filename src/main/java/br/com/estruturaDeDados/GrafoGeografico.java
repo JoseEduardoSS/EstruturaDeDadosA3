@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.util.*;
 
 public class GrafoGeografico {
-    private final Map<String, Map<String, Aresta>> grafo = new HashMap<>();
-
     private static final double CONSUMO_ONIBUS = 4.0;
     private static final double CONSUMO_CARRO = 15.0;
     private static final double CONSUMO_MOTO = 20.0;
@@ -24,8 +22,7 @@ public class GrafoGeografico {
 
     private static final String CSVPATH = "src/main/java/br/com/estruturaDeDados/Dados.csv";
 
-    public record Aresta(double distancia, int tempo) {
-    }
+    private final Map<String, Map<String, Aresta>> grafo = new HashMap<>();
 
     private void adicionarAresta(String pontoA, String pontoB, Aresta aresta) {
         grafo.computeIfAbsent(Objects.requireNonNull(pontoA).toLowerCase(), k -> new HashMap<>()).put(Objects.requireNonNull(pontoB).toLowerCase(), aresta);
@@ -72,7 +69,6 @@ public class GrafoGeografico {
 
         return new RetornoCalculo(-1.0, -1, Collections.emptyList(), -1.0);
     }
-
 
     private List<String> construirPercurso(Map<String, String> predecessores, String pontoA, String pontoB) {
         List<String> percurso = new ArrayList<>();
@@ -165,5 +161,8 @@ public class GrafoGeografico {
         } catch (IOException e) {
             throw new IllegalStateException(e.getMessage());
         }
+    }
+
+    public record Aresta(double distancia, int tempo) {
     }
 }
