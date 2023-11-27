@@ -22,7 +22,7 @@ public class GrafoGeografico {
 
     private static final double PRECO_COMBUSTIVEL = 5.63;
 
-    private static final String CSVPATH = "C:\\Workspace\\projects\\EstruturaDeDadosA3\\src\\main\\java\\br\\com\\estruturaDeDados\\Dados.csv";
+    private static final String CSVPATH = "src/main/java/br/com/estruturaDeDados/Dados.csv";
 
     public record Aresta(double distancia, int tempo) {
     }
