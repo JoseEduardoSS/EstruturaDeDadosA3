@@ -1,6 +1,10 @@
 package br.com.estruturaDeDados;
 
 import org.apache.commons.csv.CSVRecord;
+import org.graphstream.graph.Graph;
+import org.graphstream.graph.implementations.SingleGraph;
+import org.graphstream.ui.view.View;
+import org.graphstream.ui.view.Viewer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,6 +14,8 @@ import java.util.Objects;
 import java.util.stream.Stream;
 
 public class GuiView {
+
+    public static SingleGraph graphView = new SingleGraph("Resultado");
 
     public static void exibirJanelaPrincipal(List<CSVRecord> csvRecords, GrafoGeografico grafo) {
         JFrame frame = new JFrame("Calculadora de Rotas");
@@ -60,6 +66,7 @@ public class GuiView {
                 .toArray(String[]::new);
     }
 
+
     private static void exibirResultados(RetornoCalculo resultado, String inicio, String destino) {
         JFrame frame = new JFrame("Resultados");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -72,24 +79,97 @@ public class GuiView {
         var larguraJanela = tamanhoPercurso > 3 ? tamanhoPercurso * 5 + 450 : 450;
 
         frame.setSize(larguraJanela, 200);
-        frame.setLayout(new GridLayout(4, 1));
 
         DecimalFormat numberFormat = new DecimalFormat("#.00");
 
         frame.setLocationRelativeTo(null);
 
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(4, 1));
+
         if (resultado.menorDistancia() >= 0) {
-            frame.add(new JLabel(
+            panel.add(new JLabel(
                     "A menor distância entre " + Utils.capitalizeWords(inicio) +
                             " e " + Utils.capitalizeWords(destino) +
                             " é: " + numberFormat.format(resultado.menorDistancia()) + " km"));
-            frame.add(new JLabel("Percurso: " + String.join(" → ", resultado.percurso())));
-            frame.add(new JLabel("Tempo total da viagem: " + Utils.convertTime(resultado.tempoTotal())));
-            frame.add(new JLabel("Custo total da viagem: R$ " + numberFormat.format(resultado.custoTotal())));
+            panel.add(new JLabel("Tempo total da viagem: " + Utils.convertTime(resultado.tempoTotal())));
+            panel.add(new JLabel("Custo total da viagem: R$ " + numberFormat.format(resultado.custoTotal())));
         } else {
-            frame.add(new JLabel("Não há caminho entre " + inicio + " e " + destino));
+            panel.add(new JLabel("Não há caminho entre " + inicio + " e " + destino));
         }
 
+        var viewer = montarVisualizacaoDoGrafo(resultado.percurso());
+
+        frame.setLayout(new BorderLayout());
+        frame.add(panel, BorderLayout.NORTH);
+        frame.add((Component) viewer.addDefaultView(false), BorderLayout.CENTER);
+        frame.setSize(1200, 800);
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+    }
+
+
+    private static Viewer montarVisualizacaoDoGrafo(List<String> percurso) {
+        System.setProperty("org.graphstream.ui", "swing");
+
+        Viewer viewer = new Viewer(graphView, Viewer.ThreadingModel.GRAPH_IN_GUI_THREAD);
+        viewer.enableAutoLayout();
+
+        viewer.enableAutoLayout();
+        viewer.setCloseFramePolicy(Viewer.CloseFramePolicy.CLOSE_VIEWER);
+
+        for (int i = 0; i < percurso.size() - 1; i++) {
+            var pontoA = percurso.get(i);
+            var pontoB = percurso.get(i + 1);
+
+            graphView.getNode(pontoA).setAttribute("ui.style", "fill-color: red;");
+            graphView.getNode(pontoB).setAttribute("ui.style", "fill-color: red;");
+
+            var edgeId = pontoA + pontoB;
+            var edge = graphView.getEdge(edgeId);
+
+            if (edge == null) {
+                edgeId = pontoB + pontoA;
+                edge = graphView.getEdge(edgeId);
+            }
+
+            if (edge != null) {
+                edge.setAttribute("ui.style", "fill-color: red;");
+            }
+        }
+
+        String styleSheet =
+                "node {" +
+                        "   fill-color: blue;" +
+                        "   size: 30px, 20px;" +
+                        "   text-size: 15px;" +
+                        "}" +
+                        "edge {" +
+                        "   fill-color: black;" +
+                        "   size: 3px;" +
+                        "   text-size: 10px;" +
+                        "}";
+        graphView.setAttribute("ui.stylesheet", styleSheet);
+
+        return viewer;
+    }
+
+    public void montarNosEArestasDoGrafo(String pontoA, String pontoB, Double distancia) {
+        var nodeA = graphView.getNode(pontoA);
+        var nodeB = graphView.getNode(pontoB);
+
+        if (nodeA == null) {
+            graphView.addNode(pontoA).setAttribute("ui.label", pontoA);
+        }
+
+        if (nodeB == null) {
+            graphView.addNode(pontoB).setAttribute("ui.label", pontoB);
+        }
+
+        var edgeId = pontoA + pontoB;
+
+        var edge = graphView.getEdge(edgeId);
+
+        graphView.addEdge(edgeId, pontoA, pontoB).setAttribute("ui.label", distancia.toString() + " km");
     }
 }

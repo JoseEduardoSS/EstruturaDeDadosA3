@@ -22,10 +22,14 @@ public class GrafoGeografico {
     // Mapa para representar o grafo, onde cada ponto tem associação com outros pontos e a respectiva aresta
     public final Map<String, Map<String, Aresta>> grafo = new HashMap<>();
 
+    private static final GuiView view = new GuiView();
+
     // Método para adicionar uma aresta ao grafo, associando dois pontos com a respectiva aresta
     private void adicionarAresta(String pontoA, String pontoB, Aresta aresta) {
         grafo.computeIfAbsent(Objects.requireNonNull(pontoA), k -> new HashMap<>()).put(Objects.requireNonNull(pontoB), aresta);
         grafo.computeIfAbsent(Objects.requireNonNull(pontoB), k -> new HashMap<>()).put(pontoA, aresta);
+
+        view.montarNosEArestasDoGrafo(pontoA,pontoB,aresta.distancia());
     }
 
     // Método principal para calcular a menor distância entre dois pontos, considerando um meio de transporte
